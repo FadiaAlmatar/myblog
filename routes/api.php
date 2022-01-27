@@ -21,11 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('posts', [PostController::class,'index']);
 Route::apiResource('posts', PostController::class);
-// Route::apiResource('categories', CategoryController::class);
-// Route::get('category/{slug}/posts', [PostController::class,'categoryPosts']);
-// Route::get('searchposts/{query}', [PostController::class,'searchposts']);
+
 Route::post('register', [UserController::class,'register']);
 Route::post('login', [UserController::class,'login']);
 // Route::middleware('auth:api')->group(function () {
@@ -40,5 +37,4 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::post('updatePost',[AdminController::class,'updatePost']);
     Route::post('deletePost/{id}',[AdminController::class,'deletePost']);
 });
-// Route::post('admin/addPost',[AdminController::class,'addPost']);
-// Route::get('searchposts/{query}','PostController@searchposts');
+
