@@ -3,10 +3,12 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 import Post from '../components/Posts.vue';
+import PostDetails from '../components/PostDetails.vue';
 import AdminIndex from '../components/admin/AdminIndex.vue';
 // import AddPost from '../components/admin/AddPost.vue';
 const routes =[
     {path:'/',component : Post , name : 'Post'},
+    {path:'/post/:slug',component : PostDetails , name : 'PostDetails'},
     {path:'/admin',component : AdminIndex , name : 'AdminIndex'},
     // {path:'/admin/addpost',component : AddPost , name : 'AddPost'}
 ];

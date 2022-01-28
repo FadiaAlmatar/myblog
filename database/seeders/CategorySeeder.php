@@ -15,34 +15,34 @@ class CategorySeeder extends Seeder
     {
         \App\Models\Category::create(
             [
-                'name' =>'html tutorials',
-                'slug' =>'html-tutorials'
+                'name' =>'Food',
+                'slug' =>'Food'
             ]
         );
         \App\Models\Category::create(
           [
-              'name' =>'css tutorials',
-              'slug' =>'css-tutorials'
+              'name' =>'Shopping',
+              'slug' =>'Shopping'
           ]
       );
       \App\Models\Category::create(
           [
-              'name' =>'javascript tutorials',
-              'slug' =>'javascript-tutorials'
+              'name' =>'Technology',
+              'slug' =>'Technology'
           ]
       );
       \App\Models\Category::create(
           [
-              'name' =>'laravel tutorials',
-              'slug' =>'laravel-tutorials'
+              'name' =>'Weather',
+              'slug' =>'Weather'
           ]
       );
       \App\Models\Category::create(
           [
-              'name' =>'vue js tutorials',
-              'slug' =>'vue-js-tutorials'
+              'name' =>'Art',
+              'slug' =>'Art'
           ]
       );
-  
+
     }
 }

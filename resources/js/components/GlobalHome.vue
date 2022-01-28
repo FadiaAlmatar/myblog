@@ -1,7 +1,7 @@
 <template>
 <div>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark  fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">Blog</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,18 +23,19 @@
 
  <!-- v-if="!isLogged" -->
           <li  class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#register-modal">
-            <a class="btn btn-info nav-link" href="" data-toggle="modal" data-target="#register-modal">Register</a>
+            <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#register-modal">Register</a>
           </li>
           <!-- v-if="!isLogged" -->
           <li class="nav-item reg-login-btn" data-toggle="modal" data-target="#login-modal">
            <!-- </li <a class="btn btn-primary text-weight nav-link" href="">login</a> -->
-            <a class="btn btn-info nav-link" href="" data-toggle="modal" data-target="#login-modal">login</a>
+            <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#login-modal">login</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-    <router-view></router-view>
+  <!-- switch between components -->
+<router-view></router-view>
 </div>
 </template>
 

@@ -18,6 +18,7 @@ class PostController extends Controller
         $posts = Post::latest()->with('user')->get();
         foreach($posts as $post){
             $post->setAttribute('added_at',$post->created_at->diffForHumans());
+            $post->setAttribute('comments_count',$post->comments->count());
         }
         return response()->json($posts);
     }
@@ -56,11 +57,27 @@ class PostController extends Controller
             'slug'=>$post->slug,
             'added_at'=>$post->created_at->diffForHumans(),
             'body'=>$post->body,
+            'comments_count'=>$post->comments->count(),
             'image'=>$post->image,
             'user'=>$post->user,
+            'category'=>$post->category,
+            'comments'=>$this->commentsFormatted($post->comments),
             'title'=>$post->title
         ]);
     }
+  public function commentsFormatted($comments)
+  {
+      $new_comments =[];
+      foreach($comments as $comment){
+          array_push($new_comments,[
+            'id'=>$comment->id,
+            'added_at'=>$comment->created_at->diffForHumans(),
+            'body'=>$comment->body,
+            'user'=>$comment->user
+          ]);
+      }
+      return $new_comments;
+  }
     /**
      * Show the form for editing the specified resource.
      *

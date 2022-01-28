@@ -15,18 +15,32 @@ class CommentSeeder extends Seeder
     {
         \App\Models\Comment::create(
             [
-                'body' =>'a simple title',
+                'body' =>'this is my comment',
                 'user_id' => 1,
                 'post_id'=>1
             ]
         );
         \App\Models\Comment::create(
             [
-                'body' =>'a simple title',
+                'body' =>'this is my comment',
+                'user_id' => 1,
+                'post_id'=>1
+            ]
+        );
+        \App\Models\Comment::create(
+            [
+                'body' =>'this is my comment',
                 'user_id' => 1,
                 'post_id'=>2
             ]
         );
-    
+        \App\Models\Comment::create(
+            [
+                'body' =>'this is my comment',
+                'user_id' => 1,
+                'post_id'=>3
+            ]
+        );
+
     }
 }

@@ -16,29 +16,32 @@ class PostSeeder extends Seeder
     {
         \App\Models\Post::create(
             [
-                'title' =>'a simple title',
-                'slug' =>Str::slug('a simple title'),
-                'body' =>'a simple title',
+                'title' =>'my favourite restaurant',
+                'slug' =>Str::slug('my favourite restaurant'),
+                'body' =>'my favourite restaurant',
                 'image'=>'p.jpg',
                 'user_id' => 1,
+                'category_id'=>2
             ]
         );
         \App\Models\Post::create(
             [
-                'title' =>'a simple title',
-                'slug' =>Str::slug('a simple title'),
-                'body' =>'a simple title',
+                'title' =>'weather for today',
+                'slug' =>Str::slug('weather for today'),
+                'body' =>'weather for today',
                 'image'=>'p.jpg',
                 'user_id' => 1,
+                'category_id'=>1
             ]
         );
         \App\Models\Post::create(
             [
-                'title' =>'a simple title',
-                'slug' =>Str::slug('a simple title'),
-                'body' =>'a simple title',
+                'title' =>'laravel and vue',
+                'slug' =>Str::slug('laravel and vue'),
+                'body' =>'laravel and vue',
                 'image'=>'p.jpg',
                 'user_id' => 1,
+                'category_id'=>3
             ]
         );
     }
