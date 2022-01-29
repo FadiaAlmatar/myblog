@@ -5,7 +5,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-lg-6">
-          <ul class="list-unstyled mb-0" v-if="categories.length > 0">
+          <ul class="list-unstyled mb-0" v-if="categories">
             <li v-for="(category,index) in categories" :key="index">
               <!-- <a href="#">{{category.name}}</a> -->
               <router-link :to="'category/'+category.slug+'/posts'">{{category.name}}</router-link>

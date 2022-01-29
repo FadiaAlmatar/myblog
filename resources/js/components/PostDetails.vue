@@ -13,10 +13,13 @@
       </p>
 
       <hr />
+       <!-- Date/Time -->
+        <p>Posted on <strong class="badge badge-primary p-1">{{post.added_at}}</strong>
+            <span class="float-right"><strong class="badge badge-info p-1">{{comments.length}}</strong> comments</span></p>
 
       <!-- Date/Time -->
       <p>
-        Posted on
+        <!-- Posted on
         <strong class="badge badge-primary p-1">{{ post.added_at }}</strong>
         <span class="float-right"
           ><strong class="badge badge-info p-1">{{
@@ -24,7 +27,7 @@
           }}</strong>
           comments</span
         >
-      </p>
+      </p> -->
       <hr />
       <!-- Preview Image -->
       <img
@@ -39,17 +42,18 @@
       <hr />
 
       <!-- Comments Form -->
-      <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-          <form>
-            <div class="form-group">
-              <textarea class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <input type="hidden" name="" v-model="post_id">
+              <div class="form-group">
+                <textarea class="form-control" rows="3" v-model="body"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" @click.prevent="addComment">Submit</button>
+            </form>
+          </div>
         </div>
-      </div>
 
       <!-- Single Comment -->
       <div
@@ -76,7 +80,10 @@
 export default {
   data() {
     return {
-      post:''
+      post:'',
+       body:'',
+       post_id : '',
+       comments:[]
     }
   },
   created() {
@@ -88,20 +95,30 @@ export default {
         .then(res => {
             console.log(res)
           this.post = res.data;
+           this.post_id = this.post.id;
+        this.comments = this.post.comments
         })
         .catch(err => {console.log(err)
         })
     },
-     updateToken(){
-       let token =JSON.parse(localStorage.getItem('userToken'));
-       this.$store.commit('setUserToken',token)
-     }
+     addComment(){
+       let {body,post_id} = this;
+       axios.post('http://localhost:8000/api/comment/create',{body,post_id})
+       .then(res => {
+         console.log(res)
+         this.comments.unshift(res.data)
+       })
+     },
+    //  updateToken(){
+    //    let token =JSON.parse(localStorage.getItem('userToken'));
+    //    this.$store.commit('setUserToken',token)
+    //  }
    },
-   computed:{
-     isLogged(){
-       return this.$store.getters.isLogged;
-     }
-   }
+//    computed:{
+//      isLogged(){
+//        return this.$store.getters.isLogged;
+//      }
+//    }
   }
 
 </script>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -111,5 +113,25 @@ class PostController extends Controller
     {
         //
     }
+    public function categoryPosts($slug)
+    {
+       $category = Category::whereSlug($slug)->first();
+    //    return $category;
+       $posts = Post::whereCategoryId($category->id)->with('user')->get();
+    // $posts= DB::table('categories')
+    // ->join('posts', 'categories.id','=','posts.category_id')
+    // ->where('categories.slug','=','Food')
+    // // ->ORDERBY ('posts.updated_at', 'DESC')
+    // ->get();
+    // return $posts;
+
+       foreach($posts as $post){
+        $post->setAttribute('added_at',$post->created_at->diffForHumans());
+        $post->setAttribute('comments_count',$post->comments->count());
+    }
+       return response()->json($posts);
+}
+
+
 
 }

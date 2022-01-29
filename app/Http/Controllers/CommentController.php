@@ -36,7 +36,18 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        $comment = Comment::create([
+            'body'=>$request->body,
+            'user_id'=>1,
+            'post_id'=>$request->post_id
+        ]);
+        return response()->json([
+            'id'=>$comment->id,
+            'body'=>$comment->body,
+            'user'=>$comment->user,
+            'added_at'=>$comment->created_at->diffForHumans(),
+
+        ]);
     }
 
     /**

@@ -49,7 +49,6 @@ const store = new Vuex.Store({
                 return state.user.is_admin
             }
             return null
-
         },
         PostToEdit(state) {
             return state.EditedPost
@@ -62,14 +61,12 @@ const store = new Vuex.Store({
             axios.defaults.headers.common.Authorization = `Bearer ${userToken}`
         },
         removeUserToken(state) {
-
             state.userToken = null;
             localStorage.removeItem('userToken')
         },
         setUser(state, user) {
             state.user = user
         },
-
         EditPost(state, post) {
             state.EditedPost = post;
         }
