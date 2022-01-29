@@ -29,16 +29,18 @@ class AdminController extends Controller
            $request->image->move(public_path('img'),$filename);
         }
 
-        $post =new Post();
-        // $post = Post::create([
-            $post->title=$request->title;
-            $post->slug=Str::slug($request->title);
-            $post->body=$request->body;
-            $post->user_id=1;
-            $post->image=$filename;
-        // ]);
+        // $post =new Post();
+        $post = Post::create([
+            'title'=>$request->title,
+            'slug'=>Str::slug($request->title),
+            'body'=>$request->body,
+            'category_id'=>$request->category,
+            'user_id'=> 1,
+            'image'=>$filename
+        ]);
         // return($request->title);
-        $post->save();
+        // $post->save();
+        // return "here";
         // return "here";
         return response()->json($post);
     }
