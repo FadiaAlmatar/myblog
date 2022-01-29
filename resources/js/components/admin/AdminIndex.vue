@@ -121,7 +121,7 @@ export default {
             formdata.append('title',this.title);
             formdata.append('body',this.body);
             formdata.append('image',this.image);
-			axios.post('http://localhost:8000/api/admin/addPost',formdata,config
+			axios.post("http://localhost:8000/api/admin/addPost",formdata,config
             )
 			.then(res => {
 				console.log(res);
@@ -129,7 +129,7 @@ export default {
 				this.body = '';
 				this.image = '';
 				$('#addPostModal').modal('hide');
-				$('.modal-backdrop').css('display','none')
+				// $('.modal-backdrop').css('display','none')
 			})
 		},
 		editPost(post){

@@ -6062,13 +6062,12 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('title', this.title);
       formdata.append('body', this.body);
       formdata.append('image', this.image);
-      axios.post('http://localhost:8000/api/admin/addPost', formdata, config).then(function (res) {
+      axios.post("http://localhost:8000/api/admin/addPost", formdata, config).then(function (res) {
         console.log(res);
         _this2.title = '';
         _this2.body = '';
         _this2.image = '';
-        $('#addPostModal').modal('hide');
-        $('.modal-backdrop').css('display', 'none');
+        $('#addPostModal').modal('hide'); // $('.modal-backdrop').css('display','none')
       });
     },
     editPost: function editPost(post) {

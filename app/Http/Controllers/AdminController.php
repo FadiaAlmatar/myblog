@@ -37,6 +37,7 @@ class AdminController extends Controller
             'user_id'=> 1,
             'image'=>$filename
         ]);
+        // return $post;
         // return($request->title);
         // $post->save();
         // return "here";
