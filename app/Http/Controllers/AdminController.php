@@ -28,7 +28,6 @@ class AdminController extends Controller
            $filename = time().'.'.$request->image->getClientOriginalExtension();
            $request->image->move(public_path('img'),$filename);
         }
-
         // $post =new Post();
         $post = Post::create([
             'title'=>$request->title,
@@ -62,6 +61,6 @@ class AdminController extends Controller
     public function deletePost(Request $request){
     $post = Post::find($request->id);
     $post->delete();
-       return response()->json(['message'=>'deleted']);
+    return response()->json(['message'=>'deleted']);
     }
 }
