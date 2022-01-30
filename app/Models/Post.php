@@ -18,7 +18,8 @@ class Post extends Model
         'category_id',
         'user_id',
         'image',
-        'date'
+        'date',
+        'status'
     ];
 
 

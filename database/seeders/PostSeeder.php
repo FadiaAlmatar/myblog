@@ -22,7 +22,8 @@ class PostSeeder extends Seeder
                 'image'=>'p.jpg',
                 'date' => '2022-01-30',
                 'user_id' => 1,
-                'category_id'=>2
+                'category_id'=>2,
+                'status'=>1// active
             ]
         );
         \App\Models\Post::create(
@@ -33,7 +34,8 @@ class PostSeeder extends Seeder
                 'image'=>'p.jpg',
                 'date' => '2022-01-30',
                 'user_id' => 1,
-                'category_id'=>1
+                'category_id'=>1,
+                'status'=>1// active
             ]
         );
         \App\Models\Post::create(
@@ -44,7 +46,8 @@ class PostSeeder extends Seeder
                 'image'=>'p.jpg',
                 'date' => '2022-01-30',
                 'user_id' => 1,
-                'category_id'=>3
+                'category_id'=>3,
+                'status'=>1// active
             ]
         );
     }

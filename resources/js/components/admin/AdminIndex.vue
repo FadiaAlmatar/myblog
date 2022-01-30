@@ -31,7 +31,7 @@
                         <td>
                             <img :src="'img/'+post.image" style="width:100px;height:60px;border:1px solid #e7e7e7" alt="">
                         </td>
-                        <td>{{ post.category.name }}</td>
+                        <td v-if="post.category">{{ post.category.name }}</td>
                         <td>{{ post.user.name }}</td>
                         <td>
                             <a href="#editPostModal" class="edit" @click="editPost(post,$event)"
@@ -61,25 +61,42 @@
 						<div class="form-group">
 							<label>Description</label>
 							<textarea name=""  cols="20" class="form-control" v-model="body"
-                            rows="5"></textarea>
+                            rows="3"></textarea>
 						</div>
                         <div class="form-group">
 							<label>Date</label>
 							<input type="date" class="form-control" required v-model="date">
                          <!-- <input name="duedate"type="date" value=@if(!empty($task)) "{{$task->duedate->format('Y-m-d')}}" @else "{{\Carbon\Carbon::now()->format('Y-m-d')}}" @endif/> -->
-
 						</div>
                         <div class="form-group">
 							<label>Category</label>
 							<select name="" class="form-control" v-model="category">
                                 <option value="0" disabled selected>choose category</option>
-
                                 <option :value="category.id" v-for="category in categories" :key="category.id">
 								 {{ category.name }}
 								</option>
                             </select>
 						</div>
-
+                        <!-- <div class="form-group">
+                            <input  class="form-check-input" type="radio" id="active" v-model="status">
+                            <label class="form-check-label" for="active">active</label>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-check-input" type="radio" id="unactive" v-model="status">
+                            <label for="unactive">unactive</label>
+                        </div> -->
+                        <div>
+                            <p>
+                            <input type="radio" name="status" :id="active" :value="1" v-model="status">
+                            <label class="form-check-label" for="active">active</label>
+                            </p>
+                        </div>
+                           <div>
+                            <p>
+                            <input type="radio" name="status" :id="unactive" :value="0" v-model="status">
+                            <label for="unactive">unactive</label>
+                            </p>
+                        </div>
 						<div class="form-group">
 							<label>Image</label>
 							<input type="file" class="form-control" required @change="onImageChanged" >
@@ -107,6 +124,7 @@ export default {
 			body  :'',
 			image : '',
             date :'',
+            status:'',
             categories : [],
             category:''
 		}
@@ -145,6 +163,7 @@ export default {
             formdata.append('title',this.title);
             formdata.append('body',this.body);
             formdata.append('image',this.image);
+            formdata.append('status',this.status);
             formdata.append('category',this.category);
             formdata.append('date',this.date);
 			axios.post("http://localhost:8000/api/admin/addPost",formdata,config
@@ -154,6 +173,7 @@ export default {
 				this.title = '';
 				this.body = '';
 				this.image = '';
+                this.status = '';
                 this.category = '';
                 this.date= '';
 				// $('#addPostModal').modal('hide');

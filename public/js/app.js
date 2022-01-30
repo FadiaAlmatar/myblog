@@ -6037,6 +6037,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6046,6 +6059,7 @@ __webpack_require__.r(__webpack_exports__);
       body: '',
       image: '',
       date: '',
+      status: '',
       categories: [],
       category: ''
     };
@@ -6092,6 +6106,7 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('title', this.title);
       formdata.append('body', this.body);
       formdata.append('image', this.image);
+      formdata.append('status', this.status);
       formdata.append('category', this.category);
       formdata.append('date', this.date);
       axios.post("http://localhost:8000/api/admin/addPost", formdata, config).then(function (res) {
@@ -6099,6 +6114,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.title = '';
         _this3.body = '';
         _this3.image = '';
+        _this3.status = '';
         _this3.category = '';
         _this3.date = ''; // $('#addPostModal').modal('hide');
         // $('.modal-backdrop').css('display','none')
@@ -6177,16 +6193,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      categories: []
+    };
+  },
+  created: function created() {
+    this.getCategories();
   },
   methods: {
+    getCategories: function getCategories() {
+      var _this = this;
+
+      axios.get('http://localhost:8000/api/admin/categories').then(function (res) {
+        console.log(res.data);
+        _this.categories = res.data;
+      }).then(function (err) {
+        return console.log(err);
+      });
+    },
     onImageChanged: function onImageChanged(event) {
       this.PostToEdit.image = event.target.files[0];
     },
     updatePost: function updatePost() {
-      var _this = this;
+      var _this2 = this;
 
       var config = {
         headers: {
@@ -6198,11 +6242,16 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('id', this.PostToEdit.id);
       formdata.append('body', this.PostToEdit.body);
       formdata.append('image', this.PostToEdit.image);
+      formdata.append('category', this.PostToEdit.category.id);
+      formdata.append('date', this.PostToEdit.date);
       axios.post('http://localhost:8000/api/admin/updatePost', formdata, config).then(function (res) {
         console.log(res);
-        _this.PostToEdit.image = res.data.image;
-        $('#editPostModal').modal('hide');
-        $('.modal-backdrop').css('display', 'none');
+        _this2.PostToEdit.image = res.data.image; // $('#editPostModal').modal('hide');
+        // $('.modal-backdrop').css('display','none')
+
+        $("#addPostModal").removeClass("in");
+        $(".modal-backdrop").remove();
+        $("#addPostModal").hide();
       });
     }
   },
@@ -31147,6 +31196,10 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
+                  post.category
+                    ? _c("td", [_vm._v(_vm._s(post.category.name))])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(post.user.name))]),
                   _vm._v(" "),
                   _c("td", [
@@ -31261,7 +31314,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", cols: "20", rows: "5" },
+                    attrs: { name: "", cols: "20", rows: "3" },
                     domProps: { value: _vm.body },
                     on: {
                       input: function ($event) {
@@ -31360,6 +31413,67 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.status,
+                          expression: "status",
+                        },
+                      ],
+                      attrs: { type: "radio", name: "status", id: _vm.active },
+                      domProps: { value: 1, checked: _vm._q(_vm.status, 1) },
+                      on: {
+                        change: function ($event) {
+                          _vm.status = 1
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "active" },
+                      },
+                      [_vm._v("active")]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.status,
+                          expression: "status",
+                        },
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "status",
+                        id: _vm.unactive,
+                      },
+                      domProps: { value: 0, checked: _vm._q(_vm.status, 0) },
+                      on: {
+                        change: function ($event) {
+                          _vm.status = 0
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "unactive" } }, [
+                      _vm._v("unactive"),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", [_vm._v("Image")]),
                   _vm._v(" "),
@@ -31434,9 +31548,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Body")]),
+        _c("th", [_vm._v("Description")]),
         _vm._v(" "),
         _c("th", [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("User")]),
         _vm._v(" "),
@@ -31540,7 +31656,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", cols: "30", rows: "10" },
+                    attrs: { name: "", cols: "20", rows: "5" },
                     domProps: { value: _vm.PostToEdit.body },
                     on: {
                       input: function ($event) {
@@ -31551,6 +31667,100 @@ var render = function () {
                       },
                     },
                   }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Date")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.PostToEdit.date,
+                        expression: "PostToEdit.date",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", required: "" },
+                    domProps: { value: _vm.PostToEdit.date },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.PostToEdit, "date", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("category")]),
+                  _vm._v(" "),
+                  _vm.PostToEdit.category
+                    ? _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.PostToEdit.category.id,
+                              expression: "PostToEdit.category.id",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.PostToEdit.category,
+                                "id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "0", disabled: "", selected: "" },
+                            },
+                            [_vm._v("choose category")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.categories, function (category) {
+                            return _c(
+                              "option",
+                              {
+                                key: category.id,
+                                domProps: { value: category.id },
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t " +
+                                    _vm._s(category.name) +
+                                    "\n\t\t\t\t\t\t\t\t"
+                                ),
+                              ]
+                            )
+                          }),
+                        ],
+                        2
+                      )
+                    : _vm._e(),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [

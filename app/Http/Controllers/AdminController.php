@@ -15,7 +15,7 @@ class AdminController extends Controller
         // $this->middleware('admin');
     }
     public function getPosts(){
-        $posts = Post::latest()->with('user')->get();
+        $posts = Post::latest()->with('user')->with('category')->get();
         foreach($posts as $post){
             $post->setAttribute('added_at',$post->created_at->diffForHumans());
         }
@@ -33,12 +33,13 @@ class AdminController extends Controller
            $filename = time().'.'.$request->image->getClientOriginalExtension();
            $request->image->move(public_path('img'),$filename);
         }
-        // return $request->date;
+        // return $request->status;
         $post = Post::create([
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
             'body'=>$request->body,
             'date'=>$request->date,
+            'status'=>$request->status,
             'category_id'=>$request->category,
             'user_id'=> 1,
             'image'=>$filename
