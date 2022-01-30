@@ -58,16 +58,20 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>title</label>
+							<label>Title</label>
 							<input type="text" class="form-control" required v-model="title">
 						</div>
 						<div class="form-group">
-							<label>body</label>
-							<textarea name=""  cols="30" class="form-control" v-model="body"
-                            rows="10"></textarea>
+							<label>Description</label>
+							<textarea name=""  cols="20" class="form-control" v-model="body"
+                            rows="5"></textarea>
 						</div>
                         <div class="form-group">
-							<label>category</label>
+							<label>Date</label>
+							<input type="date" class="form-control" required v-model="date">
+						</div>
+                        <div class="form-group">
+							<label>Category</label>
 							<select name="" class="form-control" v-model="category">
                                 <option value="0" disabled selected>choose category</option>
 
@@ -78,7 +82,7 @@
 						</div>
 
 						<div class="form-group">
-							<label>image</label>
+							<label>Image</label>
 							<input type="file" class="form-control" required @change="onImageChanged" >
 						</div>
 					</div>
@@ -104,6 +108,7 @@ export default {
 			title :'',
 			body  :'',
 			image : '',
+            date :'',
             categories : [],
             category:''
 		}
@@ -142,6 +147,8 @@ export default {
             formdata.append('title',this.title);
             formdata.append('body',this.body);
             formdata.append('image',this.image);
+            formdata.append('category',this.category)
+            formdata.append('date',this.date);
 			axios.post("http://localhost:8000/api/admin/addPost",formdata,config
             )
 			.then(res => {
@@ -149,6 +156,8 @@ export default {
 				this.title = '';
 				this.body = '';
 				this.image = '';
+                this.category = '';
+                this.date= '';
 				$('#addPostModal').modal('hide');
 				// $('.modal-backdrop').css('display','none')
 			})

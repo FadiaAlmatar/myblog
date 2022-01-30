@@ -38,6 +38,7 @@ class AdminController extends Controller
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
             'body'=>$request->body,
+            'created_at'=>$request->date,
             'category_id'=>$request->category,
             'user_id'=> 1,
             'image'=>$filename

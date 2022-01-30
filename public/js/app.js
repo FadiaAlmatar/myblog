@@ -6031,6 +6031,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6039,6 +6043,7 @@ __webpack_require__.r(__webpack_exports__);
       title: '',
       body: '',
       image: '',
+      date: '',
       categories: [],
       category: ''
     };
@@ -6085,11 +6090,15 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('title', this.title);
       formdata.append('body', this.body);
       formdata.append('image', this.image);
+      formdata.append('category', this.category);
+      formdata.append('date', this.date);
       axios.post("http://localhost:8000/api/admin/addPost", formdata, config).then(function (res) {
         console.log(res);
         _this3.title = '';
         _this3.body = '';
         _this3.image = '';
+        _this3.category = '';
+        _this3.date = '';
         $('#addPostModal').modal('hide'); // $('.modal-backdrop').css('display','none')
       });
     },
@@ -31208,7 +31217,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("title")]),
+                  _c("label", [_vm._v("Title")]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -31234,7 +31243,7 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("body")]),
+                  _c("label", [_vm._v("Description")]),
                   _vm._v(" "),
                   _c("textarea", {
                     directives: [
@@ -31246,7 +31255,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", cols: "30", rows: "10" },
+                    attrs: { name: "", cols: "20", rows: "5" },
                     domProps: { value: _vm.body },
                     on: {
                       input: function ($event) {
@@ -31260,7 +31269,33 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("category")]),
+                  _c("label", [_vm._v("Date")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.date,
+                        expression: "date",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", required: "" },
+                    domProps: { value: _vm.date },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.date = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Category")]),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -31320,7 +31355,7 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("image")]),
+                  _c("label", [_vm._v("Image")]),
                   _vm._v(" "),
                   _c("input", {
                     staticClass: "form-control",
