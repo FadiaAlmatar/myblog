@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,10 @@ class AdminController extends Controller
             $post->setAttribute('added_at',$post->created_at->diffForHumans());
         }
         return response()->json($posts);
+    }
+    public function getCategories(){
+        $categories  = Category::get();
+        return response()->json($categories);
     }
 
     public function addPost(Request $request){

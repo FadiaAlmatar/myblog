@@ -37,6 +37,7 @@ Route::post('login', [UserController::class,'login']);
 Route::group(['prefix'=>'/admin'],function(){
     // Route::middleware('auth:api')->group(function () {
     Route::get('posts',[AdminController::class,'getPosts']);
+    Route::get('categories',[AdminController::class,'getCategories']);
     Route::post('addPost',[AdminController::class,'addPost']);
     Route::post('updatePost',[AdminController::class,'updatePost']);
     Route::post('deletePost/{id}',[AdminController::class,'deletePost']);

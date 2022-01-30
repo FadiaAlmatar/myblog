@@ -6021,6 +6021,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6028,11 +6038,14 @@ __webpack_require__.r(__webpack_exports__);
       posts: [],
       title: '',
       body: '',
-      image: ''
+      image: '',
+      categories: [],
+      category: ''
     };
   },
   created: function created() {
     this.getPosts();
+    this.getCategories();
   },
   components: {
     editpost: _EditPost__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -6047,11 +6060,21 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get('http://localhost:8000/api/admin/categories').then(function (res) {
+        console.log(res.data);
+        _this2.categories = res.data;
+      }).then(function (err) {
+        return console.log(err);
+      });
+    },
     onImageChanged: function onImageChanged(event) {
       this.image = event.target.files[0];
     },
     addPost: function addPost() {
-      var _this2 = this;
+      var _this3 = this;
 
       var config = {
         headers: {
@@ -6064,9 +6087,9 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('image', this.image);
       axios.post("http://localhost:8000/api/admin/addPost", formdata, config).then(function (res) {
         console.log(res);
-        _this2.title = '';
-        _this2.body = '';
-        _this2.image = '';
+        _this3.title = '';
+        _this3.body = '';
+        _this3.image = '';
         $('#addPostModal').modal('hide'); // $('.modal-backdrop').css('display','none')
       });
     },
@@ -6074,14 +6097,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('EditPost', post);
     },
     deletePost: function deletePost(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post('http://localhost:8000/api/admin/deletePost/' + id).then(function (res) {
         console.log(res.data);
         $('#deletePostModal').modal('hide');
         $('.modal-backdrop').css('display', 'none');
 
-        _this3.getPosts();
+        _this4.getPosts();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -31234,6 +31257,66 @@ var render = function () {
                       },
                     },
                   }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("category")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.category,
+                          expression: "category",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "" },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.category = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                      },
+                    },
+                    [
+                      _c(
+                        "option",
+                        { attrs: { value: "0", disabled: "", selected: "" } },
+                        [_vm._v("choose category")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.categories, function (category) {
+                        return _c(
+                          "option",
+                          {
+                            key: category.id,
+                            domProps: { value: category.id },
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t " +
+                                _vm._s(category.name) +
+                                "\n\t\t\t\t\t\t\t\t"
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [

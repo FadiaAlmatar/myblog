@@ -66,6 +66,16 @@
 							<textarea name=""  cols="30" class="form-control" v-model="body"
                             rows="10"></textarea>
 						</div>
+                        <div class="form-group">
+							<label>category</label>
+							<select name="" class="form-control" v-model="category">
+                                <option value="0" disabled selected>choose category</option>
+
+                                <option :value="category.id" v-for="category in categories" :key="category.id">
+								 {{ category.name }}
+								</option>
+                            </select>
+						</div>
 
 						<div class="form-group">
 							<label>image</label>
@@ -94,10 +104,13 @@ export default {
 			title :'',
 			body  :'',
 			image : '',
+            categories : [],
+            category:''
 		}
 	},
 	created(){
 		this.getPosts();
+        this.getCategories();
 	},
 	components:{
           editpost
@@ -110,6 +123,14 @@ export default {
                 })
                 .then(err => console.log(err))
 			},
+            getCategories(){
+               axios.get('http://localhost:8000/api/admin/categories')
+                .then(res => {
+                    console.log(res.data)
+                    this.categories = res.data;
+                })
+                .then(err => console.log(err))
+		},
 		onImageChanged(event){
 			this.image  = event.target.files[0]
 		},
