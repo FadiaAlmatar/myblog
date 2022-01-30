@@ -6050,6 +6050,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -31209,6 +31212,10 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
+                  post.status == 1
+                    ? _c("td", [_vm._v("active")])
+                    : _c("td", [_vm._v("unactive")]),
+                  _vm._v(" "),
                   post.category
                     ? _c("td", [_vm._v(_vm._s(post.category.name))])
                     : _vm._e(),
@@ -31564,6 +31571,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
         _c("th", [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Category")]),
         _vm._v(" "),

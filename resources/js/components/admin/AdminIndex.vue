@@ -18,6 +18,7 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Image</th>
+                        <th>Status</th>
                         <th>Category</th>
                         <th>User</th>
                         <th>Action</th>
@@ -31,6 +32,8 @@
                         <td>
                             <img :src="'img/'+post.image" style="width:100px;height:60px;border:1px solid #e7e7e7" alt="">
                         </td>
+                        <td v-if="post.status == 1">active</td>
+                        <td v-else>unactive</td>
                         <td v-if="post.category">{{ post.category.name }}</td>
                         <td>{{ post.user.name }}</td>
                         <td>
