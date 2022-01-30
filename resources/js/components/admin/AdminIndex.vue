@@ -15,10 +15,10 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-
                         <th>Title</th>
-                        <th>Body</th>
+                        <th>Description</th>
                         <th>Image</th>
+                        <th>Category</th>
                         <th>User</th>
                         <th>Action</th>
                     </tr>
@@ -26,12 +26,12 @@
                  <!-- v-if="posts" -->
                 <tbody>
                     <tr v-for="post in posts" :key="post.id">
-
                         <td>{{ post.title }}</td>
                         <td>{{post.body.substr(0,150)}}</td>
                         <td>
                             <img :src="'img/'+post.image" style="width:100px;height:60px;border:1px solid #e7e7e7" alt="">
                         </td>
+                        <td>{{ post.category.name }}</td>
                         <td>{{ post.user.name }}</td>
                         <td>
                             <a href="#editPostModal" class="edit" @click="editPost(post,$event)"
@@ -40,11 +40,8 @@
                             @click.prevent="deletePost(post.id)" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
                         </td>
                     </tr>
-
-
                 </tbody>
             </table>
-
         </div>
     </div>
 	<!-- Edit Modal HTML -->
@@ -97,7 +94,6 @@
 		</div>
 	</div>
    <editpost></editpost>
-
 </div>
 </template>
 

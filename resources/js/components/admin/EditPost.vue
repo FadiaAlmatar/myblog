@@ -12,12 +12,25 @@
 							<label>title</label>
 							<input type="text" class="form-control" required v-model="PostToEdit.title">
 						</div>
+
 						<div class="form-group">
 							<label>body</label>
-							<textarea name=""  cols="30" class="form-control" v-model="PostToEdit.body"
-                            rows="10"></textarea>
+							<textarea name=""  cols="20" class="form-control" v-model="PostToEdit.body"
+                            rows="5"></textarea>
 						</div>
-
+                        <div class="form-group">
+							<label>Date</label>
+							<input type="date" class="form-control" required v-model="PostToEdit.date">
+						</div>
+                        <div class="form-group">
+							<label>category</label>
+							<select name="" class="form-control" v-if="PostToEdit.category" v-model="PostToEdit.category.id">
+                                <option value="0" disabled selected>choose category</option>
+                                <option :value="category.id" v-for="category in categories" :key="category.id">
+								 {{ category.name }}
+								</option>
+                            </select>
+						</div>
 						<div class="form-group">
 							<label>image</label>
                             <img :src="'img/'+PostToEdit.image" style="height:60px;width:60px;border:1px solid #999" alt="">
@@ -39,9 +52,21 @@
 export default {
 data(){
 		return {
+            	categories : [],
 		}
 	},
+    created(){
+		this.getCategories();
+	},
 	methods:{
+        getCategories(){
+               axios.get('http://localhost:8000/api/admin/categories')
+                .then(res => {
+                    console.log(res.data)
+                    this.categories = res.data;
+                })
+                .then(err => console.log(err))
+		},
 		onImageChanged(event){
 			this.PostToEdit.image = event.target.files[0]
 		},
@@ -54,12 +79,17 @@ data(){
             formdata.append('id',this.PostToEdit.id)
             formdata.append('body',this.PostToEdit.body)
             formdata.append('image',this.PostToEdit.image)
+             formdata.append('category',this.PostToEdit.category.id);
+            formdata.append('date',this.PostToEdit.date);
 			axios.post('http://localhost:8000/api/admin/updatePost',formdata,config)
 			.then(res => {
 				console.log(res)
                 this.PostToEdit.image = res.data.image
-				$('#editPostModal').modal('hide');
-				$('.modal-backdrop').css('display','none')
+				// $('#editPostModal').modal('hide');
+				// $('.modal-backdrop').css('display','none')
+                 $("#addPostModal").removeClass("in");
+                 $(".modal-backdrop").remove();
+                $("#addPostModal").hide();
 			})
 		}
     },
