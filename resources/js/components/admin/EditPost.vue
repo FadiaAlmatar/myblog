@@ -16,7 +16,7 @@
 						<div class="form-group">
 							<label>body</label>
 							<textarea name=""  cols="20" class="form-control" v-model="PostToEdit.body"
-                            rows="5"></textarea>
+                            rows="3"></textarea>
 						</div>
                         <div class="form-group">
 							<label>Date</label>
@@ -31,6 +31,18 @@
 								</option>
                             </select>
 						</div>
+                         <div>
+                            <p>
+                            <input type="radio" name="status" :id="active" :value="1" v-model="PostToEdit.status">
+                            <label class="form-check-label" for="active">active</label>
+                            </p>
+                        </div>
+                           <div>
+                            <p>
+                            <input type="radio" name="status" :id="unactive" :value="0" v-model="PostToEdit.status">
+                            <label for="unactive">unactive</label>
+                            </p>
+                        </div>
 						<div class="form-group">
 							<label>image</label>
                             <img :src="'img/'+PostToEdit.image" style="height:60px;width:60px;border:1px solid #999" alt="">
@@ -81,6 +93,7 @@ data(){
             formdata.append('image',this.PostToEdit.image)
              formdata.append('category',this.PostToEdit.category.id);
             formdata.append('date',this.PostToEdit.date);
+             formdata.append('status',this.PostToEdit.status);
 			axios.post('http://localhost:8000/api/admin/updatePost',formdata,config)
 			.then(res => {
 				console.log(res)

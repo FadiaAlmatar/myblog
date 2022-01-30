@@ -58,6 +58,7 @@ class AdminController extends Controller
         $post->slug = Str::slug($request->title);
         $post->body = $request->body;
         $post->date = $request->date;
+        $post->status = $request->status;
         $post->category_id = $request->category;
         $post->image = $filename != '' ? $filename : $post->image;
         $post->save();

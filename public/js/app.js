@@ -6206,6 +6206,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6244,6 +6256,7 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('image', this.PostToEdit.image);
       formdata.append('category', this.PostToEdit.category.id);
       formdata.append('date', this.PostToEdit.date);
+      formdata.append('status', this.PostToEdit.status);
       axios.post('http://localhost:8000/api/admin/updatePost', formdata, config).then(function (res) {
         console.log(res);
         _this2.PostToEdit.image = res.data.image; // $('#editPostModal').modal('hide');
@@ -31656,7 +31669,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", cols: "20", rows: "5" },
+                    attrs: { name: "", cols: "20", rows: "3" },
                     domProps: { value: _vm.PostToEdit.body },
                     on: {
                       input: function ($event) {
@@ -31761,6 +31774,73 @@ var render = function () {
                         2
                       )
                     : _vm._e(),
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.PostToEdit.status,
+                          expression: "PostToEdit.status",
+                        },
+                      ],
+                      attrs: { type: "radio", name: "status", id: _vm.active },
+                      domProps: {
+                        value: 1,
+                        checked: _vm._q(_vm.PostToEdit.status, 1),
+                      },
+                      on: {
+                        change: function ($event) {
+                          return _vm.$set(_vm.PostToEdit, "status", 1)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "active" },
+                      },
+                      [_vm._v("active")]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.PostToEdit.status,
+                          expression: "PostToEdit.status",
+                        },
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "status",
+                        id: _vm.unactive,
+                      },
+                      domProps: {
+                        value: 0,
+                        checked: _vm._q(_vm.PostToEdit.status, 0),
+                      },
+                      on: {
+                        change: function ($event) {
+                          return _vm.$set(_vm.PostToEdit, "status", 0)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "unactive" } }, [
+                      _vm._v("unactive"),
+                    ]),
+                  ]),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
