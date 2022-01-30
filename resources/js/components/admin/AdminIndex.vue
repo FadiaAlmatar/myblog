@@ -69,6 +69,8 @@
                         <div class="form-group">
 							<label>Date</label>
 							<input type="date" class="form-control" required v-model="date">
+                         <!-- <input name="duedate"type="date" value=@if(!empty($task)) "{{$task->duedate->format('Y-m-d')}}" @else "{{\Carbon\Carbon::now()->format('Y-m-d')}}" @endif/> -->
+
 						</div>
                         <div class="form-group">
 							<label>Category</label>
@@ -147,7 +149,7 @@ export default {
             formdata.append('title',this.title);
             formdata.append('body',this.body);
             formdata.append('image',this.image);
-            formdata.append('category',this.category)
+            formdata.append('category',this.category);
             formdata.append('date',this.date);
 			axios.post("http://localhost:8000/api/admin/addPost",formdata,config
             )
@@ -158,8 +160,11 @@ export default {
 				this.image = '';
                 this.category = '';
                 this.date= '';
-				$('#addPostModal').modal('hide');
+				// $('#addPostModal').modal('hide');
 				// $('.modal-backdrop').css('display','none')
+                 $("#addPostModal").removeClass("in");
+                 $(".modal-backdrop").remove();
+                $("#addPostModal").hide();
 			})
 		},
 		editPost(post){

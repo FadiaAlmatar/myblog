@@ -33,21 +33,16 @@ class AdminController extends Controller
            $filename = time().'.'.$request->image->getClientOriginalExtension();
            $request->image->move(public_path('img'),$filename);
         }
-        // $post =new Post();
+        // return $request->date;
         $post = Post::create([
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
             'body'=>$request->body,
-            'created_at'=>$request->date,
+            'date'=>$request->date,
             'category_id'=>$request->category,
             'user_id'=> 1,
             'image'=>$filename
         ]);
-        // return $post;
-        // return($request->title);
-        // $post->save();
-        // return "here";
-        // return "here";
         return response()->json($post);
     }
     public function updatePost(Request $request){

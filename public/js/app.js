@@ -6035,6 +6035,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6098,8 +6100,12 @@ __webpack_require__.r(__webpack_exports__);
         _this3.body = '';
         _this3.image = '';
         _this3.category = '';
-        _this3.date = '';
-        $('#addPostModal').modal('hide'); // $('.modal-backdrop').css('display','none')
+        _this3.date = ''; // $('#addPostModal').modal('hide');
+        // $('.modal-backdrop').css('display','none')
+
+        $("#addPostModal").removeClass("in");
+        $(".modal-backdrop").remove();
+        $("#addPostModal").hide();
       });
     },
     editPost: function editPost(post) {

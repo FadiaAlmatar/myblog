@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->text('body');
             $table->string('image');
+            $table->date('date');
             $table->foreignId('user_id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id');
             $table->timestamps();

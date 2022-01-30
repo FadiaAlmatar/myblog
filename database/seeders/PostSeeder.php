@@ -20,6 +20,7 @@ class PostSeeder extends Seeder
                 'slug' =>Str::slug('my favourite restaurant'),
                 'body' =>'my favourite restaurant',
                 'image'=>'p.jpg',
+                'date' => '2022-01-30',
                 'user_id' => 1,
                 'category_id'=>2
             ]
@@ -30,6 +31,7 @@ class PostSeeder extends Seeder
                 'slug' =>Str::slug('weather for today'),
                 'body' =>'weather for today',
                 'image'=>'p.jpg',
+                'date' => '2022-01-30',
                 'user_id' => 1,
                 'category_id'=>1
             ]
@@ -40,6 +42,7 @@ class PostSeeder extends Seeder
                 'slug' =>Str::slug('laravel and vue'),
                 'body' =>'laravel and vue',
                 'image'=>'p.jpg',
+                'date' => '2022-01-30',
                 'user_id' => 1,
                 'category_id'=>3
             ]
