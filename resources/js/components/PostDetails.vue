@@ -15,7 +15,7 @@
       <hr />
        <!-- Date/Time -->
         <p>Posted on <strong class="badge badge-primary p-1">{{post.added_at}}</strong>
-            <span class="float-right"><strong class="badge badge-info p-1">{{comments.length}}</strong> comments</span></p>
+            <span class="float-right"><strong class="badge badge-info p-1" v-if="post.comments">{{comments.length}}</strong> comments</span></p>
 
       <!-- Date/Time -->
       <p>
@@ -32,7 +32,7 @@
       <!-- Preview Image -->
       <img
         class="img-fluid rounded"
-        :src="'img/' + post.image"
+        :src="'storage/'+ post.image"
         style="width: 900px; max-height: 300px"
         alt=""
       />

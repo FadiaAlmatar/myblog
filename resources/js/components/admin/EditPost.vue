@@ -45,7 +45,7 @@
                         </div>
 						<div class="form-group">
 							<label>image</label>
-                            <img :src="'img/'+PostToEdit.image" style="height:60px;width:60px;border:1px solid #999" alt="">
+                            <img :src="'storage/'+PostToEdit.image" style="height:60px;width:60px;border:1px solid #999" alt="">
 							<input type="file" class="form-control" required @change="onImageChanged" >
 						</div>
 					</div>

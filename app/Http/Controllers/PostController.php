@@ -54,6 +54,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // return $post->image;
         return response()->json([
             'id'=>$post->id,
             'slug'=>$post->slug,

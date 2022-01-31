@@ -29,8 +29,10 @@
                     <tr v-for="post in posts" :key="post.id">
                         <td>{{ post.title }}</td>
                         <td>{{post.body.substr(0,150)}}</td>
-                        <td>
-                            <img :src="'img/'+post.image" style="width:100px;height:60px;border:1px solid #e7e7e7" alt="">
+                        <td v-if="post.image">
+                            <img :src="'storage/'+post.image" style="width:100px;height:60px;border:1px solid #e7e7e7" alt="">
+                        </td>
+                        <td v-else>
                         </td>
                         <td v-if="post.status == 1">active</td>
                         <td v-else>unactive</td>
@@ -41,7 +43,9 @@
 							 data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <button style="color:red;background:white;border:none"
                             @click.prevent="deletePost(post.id)" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
-                        </td>
+                            <button style="color:black;background:white;border:none"
+                            @click.prevent="deleteImage(post.id)" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
+						</td>
                     </tr>
                 </tbody>
             </table>
@@ -90,19 +94,19 @@
                         </div> -->
                         <div>
                             <p>
-                            <input type="radio" name="status" :id="active" :value="1" v-model="status">
+                            <input type="radio" name="status" id="active" :value="1" v-model="status">
                             <label class="form-check-label" for="active">active</label>
                             </p>
                         </div>
                            <div>
                             <p>
-                            <input type="radio" name="status" :id="unactive" :value="0" v-model="status">
+                            <input type="radio" name="status" id="unactive" :value="0" v-model="status">
                             <label for="unactive">unactive</label>
                             </p>
                         </div>
 						<div class="form-group">
 							<label>Image</label>
-							<input type="file" class="form-control" required @change="onImageChanged" >
+							<input type="file" class="form-control"  required @change="onImageChanged" >
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -184,6 +188,7 @@ export default {
                  $("#addPostModal").removeClass("in");
                  $(".modal-backdrop").remove();
                 $("#addPostModal").hide();
+                this.getPosts();
 			})
 		},
 		editPost(post){
@@ -194,11 +199,21 @@ export default {
 			 axios.post('http://localhost:8000/api/admin/deletePost/'+id)
 			 .then(res => {
 				 console.log(res.data)
-				 $('#deletePostModal').modal('hide');
-				$('.modal-backdrop').css('display','none');
+				//  $('#deletePostModal').modal('hide');
+				// $('.modal-backdrop').css('display','none');
 				this.getPosts();
 			 })
 			 .catch(err =>{
+				 console.log(err)
+			 })
+		},
+		deleteImage(id){
+              axios.post('http://localhost:8000/api/admin/deleteImage/'+id)
+			 .then(res => {
+				 console.log(res.data)
+				this.getPosts();
+			 })
+              .catch(err =>{
 				 console.log(err)
 			 })
 		}

@@ -41,5 +41,6 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::post('addPost',[AdminController::class,'addPost']);
     Route::post('updatePost',[AdminController::class,'updatePost']);
     Route::post('deletePost/{id}',[AdminController::class,'deletePost']);
+    Route::post('deleteImage/{id}',[AdminController::class,'deleteImage']);
 });
 

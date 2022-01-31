@@ -6053,6 +6053,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6125,6 +6129,8 @@ __webpack_require__.r(__webpack_exports__);
         $("#addPostModal").removeClass("in");
         $(".modal-backdrop").remove();
         $("#addPostModal").hide();
+
+        _this3.getPosts();
       });
     },
     editPost: function editPost(post) {
@@ -6134,11 +6140,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios.post('http://localhost:8000/api/admin/deletePost/' + id).then(function (res) {
-        console.log(res.data);
-        $('#deletePostModal').modal('hide');
-        $('.modal-backdrop').css('display', 'none');
+        console.log(res.data); //  $('#deletePostModal').modal('hide');
+        // $('.modal-backdrop').css('display','none');
 
         _this4.getPosts();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    deleteImage: function deleteImage(id) {
+      var _this5 = this;
+
+      axios.post('http://localhost:8000/api/admin/deleteImage/' + id).then(function (res) {
+        console.log(res.data);
+
+        _this5.getPosts();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -30698,9 +30714,11 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("span", { staticClass: "float-right" }, [
-            _c("strong", { staticClass: "badge badge-info p-1" }, [
-              _vm._v(_vm._s(_vm.comments.length)),
-            ]),
+            _vm.post.comments
+              ? _c("strong", { staticClass: "badge badge-info p-1" }, [
+                  _vm._v(_vm._s(_vm.comments.length)),
+                ])
+              : _vm._e(),
             _vm._v(" comments"),
           ]),
         ]),
@@ -30711,7 +30729,7 @@ var render = function () {
         _c("img", {
           staticClass: "img-fluid rounded",
           staticStyle: { width: "900px", "max-height": "300px" },
-          attrs: { src: "img/" + _vm.post.image, alt: "" },
+          attrs: { src: "storage/" + _vm.post.image, alt: "" },
         }),
         _vm._v(" "),
         _c("hr"),
@@ -30850,7 +30868,7 @@ var render = function () {
               _c("img", {
                 staticClass: "align-self-center mr-3",
                 attrs: {
-                  src: "img/" + post.image,
+                  src: "storage/" + post.image,
                   alt: "Generic placeholder image",
                 },
               }),
@@ -31201,16 +31219,18 @@ var render = function () {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(post.body.substr(0, 150)))]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c("img", {
-                      staticStyle: {
-                        width: "100px",
-                        height: "60px",
-                        border: "1px solid #e7e7e7",
-                      },
-                      attrs: { src: "img/" + post.image, alt: "" },
-                    }),
-                  ]),
+                  post.image
+                    ? _c("td", [
+                        _c("img", {
+                          staticStyle: {
+                            width: "100px",
+                            height: "60px",
+                            border: "1px solid #e7e7e7",
+                          },
+                          attrs: { src: "storage/" + post.image, alt: "" },
+                        }),
+                      ])
+                    : _c("td"),
                   _vm._v(" "),
                   post.status == 1
                     ? _c("td", [_vm._v("active")])
@@ -31262,6 +31282,37 @@ var render = function () {
                           click: function ($event) {
                             $event.preventDefault()
                             return _vm.deletePost(post.id)
+                          },
+                        },
+                      },
+                      [
+                        _c(
+                          "i",
+                          {
+                            staticClass: "material-icons",
+                            attrs: {
+                              "data-toggle": "tooltip",
+                              title: "Delete",
+                            },
+                          },
+                          [_vm._v("")]
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "delete",
+                        staticStyle: {
+                          color: "black",
+                          background: "white",
+                          border: "none",
+                        },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.deleteImage(post.id)
                           },
                         },
                       },
@@ -31444,7 +31495,7 @@ var render = function () {
                           expression: "status",
                         },
                       ],
-                      attrs: { type: "radio", name: "status", id: _vm.active },
+                      attrs: { type: "radio", name: "status", id: "active" },
                       domProps: { value: 1, checked: _vm._q(_vm.status, 1) },
                       on: {
                         change: function ($event) {
@@ -31475,11 +31526,7 @@ var render = function () {
                           expression: "status",
                         },
                       ],
-                      attrs: {
-                        type: "radio",
-                        name: "status",
-                        id: _vm.unactive,
-                      },
+                      attrs: { type: "radio", name: "status", id: "unactive" },
                       domProps: { value: 0, checked: _vm._q(_vm.status, 0) },
                       on: {
                         change: function ($event) {
@@ -31861,7 +31908,7 @@ var render = function () {
                       width: "60px",
                       border: "1px solid #999",
                     },
-                    attrs: { src: "img/" + _vm.PostToEdit.image, alt: "" },
+                    attrs: { src: "storage/" + _vm.PostToEdit.image, alt: "" },
                   }),
                   _vm._v(" "),
                   _c("input", {
