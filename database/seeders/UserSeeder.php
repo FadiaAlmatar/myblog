@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
                 'name' =>'mouner',
                 'email' =>'mouner@gmail.com',
                 'password'=>bcrypt('12345678'),
-                'profile_img' => 'p.jpg',
+                'profile_img' => 'img/p.jpg',
             ]
         );
     }

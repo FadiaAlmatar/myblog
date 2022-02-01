@@ -63,7 +63,7 @@
       >
         <img
           class="d-flex mr-3 rounded-circle"
-          :src="'/img/' + comment.user.profile_img"
+          :src="'storage/' + comment.user.profile_img"
           style="height: 50px; width: 50px"
           alt=""
         />

@@ -30177,7 +30177,7 @@ var render = function () {
               _c("img", {
                 staticClass: "align-self-center mr-3",
                 attrs: {
-                  src: "/img/" + post.image,
+                  src: "storage/" + post.image,
                   alt: "Generic placeholder image",
                 },
               }),
@@ -30812,7 +30812,7 @@ var render = function () {
             _c("img", {
               staticClass: "d-flex mr-3 rounded-circle",
               staticStyle: { height: "50px", width: "50px" },
-              attrs: { src: "/img/" + comment.user.profile_img, alt: "" },
+              attrs: { src: "storage/" + comment.user.profile_img, alt: "" },
             }),
             _vm._v(" "),
             _c("div", { staticClass: "media-body" }, [
@@ -30865,13 +30865,15 @@ var render = function () {
               staticStyle: { border: "1px solid black" },
             },
             [
-              _c("img", {
-                staticClass: "align-self-center mr-3",
-                attrs: {
-                  src: "storage/" + post.image,
-                  alt: "Generic placeholder image",
-                },
-              }),
+              post.image
+                ? _c("img", {
+                    staticClass: "align-self-center mr-3",
+                    attrs: {
+                      src: "storage/" + post.image,
+                      alt: "Generic placeholder image",
+                    },
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c("div", { staticClass: "media-body" }, [
                 _c(

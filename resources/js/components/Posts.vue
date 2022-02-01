@@ -3,7 +3,7 @@
     <div class="col-md-9">
          <div class="row">
       <div style="border:1px solid black;" class="media simple-post col-md-6" v-for="post in posts" :key="post.id">
-        <img
+        <img v-if="post.image"
           class="align-self-center mr-3"
           :src="'storage/' + post.image"
           alt="Generic placeholder image"
