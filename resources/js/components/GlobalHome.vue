@@ -25,9 +25,8 @@
           <li  class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#register-modal">
             <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#register-modal">Register</a>
           </li>
-          <!-- v-if="!isLogged" -->
-          <li class="nav-item reg-login-btn" data-toggle="modal" data-target="#login-modal">
-           <!-- </li <a class="btn btn-primary text-weight nav-link" href="">login</a> -->
+
+           <li class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#login-modal">
             <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#login-modal">login</a>
           </li>
         </ul>
@@ -45,6 +44,9 @@
       this.updateToken()
       this.setUser();
   },
+//   components:{
+//       Login,
+//   },
   methods:{
      updateToken(){
        let token =JSON.parse(localStorage.getItem('userToken'));

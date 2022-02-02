@@ -22,7 +22,7 @@
 
               <div class="form-group">
                   <input type="email" class="form-control" placeholder="email" v-model="email">
-                  
+
               </div>
               <div class="form-group">
                   <input type="password" class="form-control" placeholder="Password" v-model="password">
@@ -73,7 +73,10 @@
         methods:{
             submitRegister(){
             let  {name,email,password} = this;
-            this.$store.dispatch('RegisterUser',{name,email,password})
+            this.$store.dispatch('RegisterUser',{name,email,password});
+             $("#register-modal").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#register-modal").hide();
             }
         }
 

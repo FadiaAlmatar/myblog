@@ -9,20 +9,22 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|min:3',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6',
+        // ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'profile_img'=>'img/p.jpg',
             'password' => bcrypt($request->password),
+            'is_admin' => false
         ]);
-
-        $token = $user->createToken('programingVh')->accessToken;
+            // return "hereeeeee";
+        // $token = $user->createToken('programingVh')->accessToken;
+        $token = $user->createToken('LaravelAuth')->accessToken;
 
         return response()->json(['token' => $token], 200);
     }

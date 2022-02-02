@@ -5479,12 +5479,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     this.updateToken();
     this.setUser();
   },
+  //   components:{
+  //       Login,
+  //   },
   methods: {
     updateToken: function updateToken() {
       var token = JSON.parse(localStorage.getItem('userToken'));
@@ -5565,6 +5567,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5588,6 +5592,9 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       });
+      $("#login-modal").removeClass("in");
+      $(".modal-backdrop").remove();
+      $("#login-modal").hide();
     }
   }
 });
@@ -5916,6 +5923,9 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       });
+      $("#register-modal").removeClass("in");
+      $(".modal-backdrop").remove();
+      $("#register-modal").hide();
     }
   }
 });
@@ -30442,7 +30452,7 @@ var staticRenderFns = [
     return _c(
       "li",
       {
-        staticClass: "nav-item reg-login-btn",
+        staticClass: "nav-item register-btn reg-login-btn",
         attrs: { "data-toggle": "modal", "data-target": "#login-modal" },
       },
       [
@@ -30537,6 +30547,26 @@ var render = function () {
                         },
                       },
                     }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.emailError,
+                            expression: "emailError",
+                          },
+                        ],
+                        staticClass: "text-danger",
+                      },
+                      [
+                        _vm._v(
+                          "\n                     ... the email is not valid\n                  "
+                        ),
+                      ]
+                    ),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
@@ -30577,7 +30607,7 @@ var render = function () {
                       },
                       [
                         _vm._v(
-                          "\n                     password is short\n                 "
+                          "\n                     ... the password is too short\n                  "
                         ),
                       ]
                     ),
@@ -30588,7 +30618,7 @@ var render = function () {
                       "button",
                       {
                         staticClass: "btn btn-primary btn-block",
-                        attrs: { type: "submit", disabled: !_vm.isValidForm },
+                        attrs: { type: "submit" },
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
