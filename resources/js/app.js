@@ -70,7 +70,7 @@ const store = new Vuex.Store({
         logout(state) {
             state.userToken = null;
             localStorage.removeItem('userToken');
-            window.location.pathname = "/"
+            window.location.pathname = "http://localhost:8000/"
         },
         EditPost(state, post) {
             state.EditedPost = post;

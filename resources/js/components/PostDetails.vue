@@ -42,7 +42,7 @@
       <hr />
 
       <!-- Comments Form -->
-        <div class="card my-4">
+        <div class="card my-4" v-if="isLogged">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
             <form>
@@ -109,6 +109,7 @@ export default {
        .then(res => {
          console.log(res)
          this.comments.unshift(res.data)
+         this.body = ''
        })
      },
      updateToken(){

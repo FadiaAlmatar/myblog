@@ -5734,6 +5734,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(res);
 
         _this2.comments.unshift(res.data);
+
+        _this2.body = '';
       });
     },
     updateToken: function updateToken() {
@@ -6391,7 +6393,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     logout: function logout(state) {
       state.userToken = null;
       localStorage.removeItem('userToken');
-      window.location.pathname = "/";
+      window.location.pathname = "http://localhost:8000/";
     },
     EditPost: function EditPost(state, post) {
       state.EditedPost = post;
@@ -30782,75 +30784,77 @@ var render = function () {
         _vm._v("\n    " + _vm._s(_vm.post.body) + "\n    "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "card my-4" }, [
-          _c("h5", { staticClass: "card-header" }, [
-            _vm._v("Leave a Comment:"),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("form", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.post_id,
-                    expression: "post_id",
-                  },
-                ],
-                attrs: { type: "hidden", name: "" },
-                domProps: { value: _vm.post_id },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.post_id = $event.target.value
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.body,
-                      expression: "body",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: { rows: "3" },
-                  domProps: { value: _vm.body },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.body = $event.target.value
-                    },
-                  },
-                }),
+        _vm.isLogged
+          ? _c("div", { staticClass: "card my-4" }, [
+              _c("h5", { staticClass: "card-header" }, [
+                _vm._v("Leave a Comment:"),
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.addComment.apply(null, arguments)
+              _c("div", { staticClass: "card-body" }, [
+                _c("form", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.post_id,
+                        expression: "post_id",
+                      },
+                    ],
+                    attrs: { type: "hidden", name: "" },
+                    domProps: { value: _vm.post_id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.post_id = $event.target.value
+                      },
                     },
-                  },
-                },
-                [_vm._v("Submit")]
-              ),
-            ]),
-          ]),
-        ]),
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.body,
+                          expression: "body",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { rows: "3" },
+                      domProps: { value: _vm.body },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.body = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.addComment.apply(null, arguments)
+                        },
+                      },
+                    },
+                    [_vm._v("Submit")]
+                  ),
+                ]),
+              ]),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.post.comments, function (comment, index) {
           return _c("div", { key: index, staticClass: "media mb-4" }, [
