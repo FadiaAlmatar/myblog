@@ -100,9 +100,9 @@ data(){
                 // this.PostToEdit.image = res.data.image
 				// $('#editPostModal').modal('hide');
 				// $('.modal-backdrop').css('display','none')
-                 $("#addPostModal").removeClass("in");
+                 $("#editPostModal").removeClass("in");
                  $(".modal-backdrop").remove();
-                $("#addPostModal").hide();
+                $("#editPostModal").hide();
 			})
 		}
     },

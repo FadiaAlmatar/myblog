@@ -27,6 +27,9 @@
            <li class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#login-modal" v-if="!isLogged">
             <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#login-modal">login</a>
           </li>
+           <li class="nav-item" v-if="isLogged" @click.stop="logout">
+            <a class="nav-link" href="">logout</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -58,6 +61,9 @@
                         })
                }
      },
+       logout(){
+         this.$store.commit('logout')
+     }
   },
   computed:{
       isLogged(){

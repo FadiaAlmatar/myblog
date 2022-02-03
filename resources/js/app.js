@@ -67,9 +67,15 @@ const store = new Vuex.Store({
         setUser(state, user) {
             state.user = user
         },
+        logout(state) {
+            state.userToken = null;
+            localStorage.removeItem('userToken');
+            window.location.pathname = "/"
+        },
         EditPost(state, post) {
             state.EditedPost = post;
         }
+
     },
     actions: {
         RegisterUser({ commit }, payload) {
@@ -87,10 +93,10 @@ const store = new Vuex.Store({
                 .then(res => {
                     console.log(res)
                     commit('setUserToken', res.data.token)
-                    // axios.get('/api/user')
-                    //     .then(res => {
-                    //         commit('setUser', res.data.user)
-                    //     })
+                    axios.get('http://localhost:8000/api/user')
+                        .then(res => {
+                            commit('setUser', res.data.user)
+                        })
                 })
                 .catch(err => {
                     console.log(err)

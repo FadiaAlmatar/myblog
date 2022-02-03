@@ -5478,6 +5478,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     this.updateToken();
@@ -5499,6 +5502,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.$store.commit('setUser', res.data.user);
         });
       }
+    },
+    logout: function logout() {
+      this.$store.commit('logout');
     }
   },
   computed: {
@@ -5734,12 +5740,12 @@ __webpack_require__.r(__webpack_exports__);
       var token = JSON.parse(localStorage.getItem('userToken'));
       this.$store.commit('setUserToken', token);
     }
-  } //    computed:{
-  //      isLogged(){
-  //        return this.$store.getters.isLogged;
-  //      }
-  //    }
-
+  },
+  computed: {
+    isLogged: function isLogged() {
+      return this.$store.getters.isLogged;
+    }
+  }
 });
 
 /***/ }),
@@ -6290,9 +6296,9 @@ __webpack_require__.r(__webpack_exports__);
         // $('#editPostModal').modal('hide');
         // $('.modal-backdrop').css('display','none')
 
-        $("#addPostModal").removeClass("in");
+        $("#editPostModal").removeClass("in");
         $(".modal-backdrop").remove();
-        $("#addPostModal").hide();
+        $("#editPostModal").hide();
       });
     }
   },
@@ -6382,6 +6388,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     setUser: function setUser(state, user) {
       state.user = user;
     },
+    logout: function logout(state) {
+      state.userToken = null;
+      localStorage.removeItem('userToken');
+      window.location.pathname = "/";
+    },
     EditPost: function EditPost(state, post) {
       state.EditedPost = post;
     }
@@ -6400,10 +6411,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       var commit = _ref2.commit;
       axios.post('http://localhost:8000/api/login', payload).then(function (res) {
         console.log(res);
-        commit('setUserToken', res.data.token); // axios.get('/api/user')
-        //     .then(res => {
-        //         commit('setUser', res.data.user)
-        //     })
+        commit('setUserToken', res.data.token);
+        axios.get('http://localhost:8000/api/user').then(function (res) {
+          commit('setUser', res.data.user);
+        });
       })["catch"](function (err) {
         console.log(err);
       });
@@ -30436,6 +30447,28 @@ var render = function () {
                               },
                             },
                             [_vm._v("login")]
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isLogged
+                    ? _c(
+                        "li",
+                        {
+                          staticClass: "nav-item",
+                          on: {
+                            click: function ($event) {
+                              $event.stopPropagation()
+                              return _vm.logout.apply(null, arguments)
+                            },
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            { staticClass: "nav-link", attrs: { href: "" } },
+                            [_vm._v("logout")]
                           ),
                         ]
                       )

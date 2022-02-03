@@ -116,11 +116,11 @@ export default {
        this.$store.commit('setUserToken',token)
      }
    },
-//    computed:{
-//      isLogged(){
-//        return this.$store.getters.isLogged;
-//      }
-//    }
+   computed:{
+     isLogged(){
+       return this.$store.getters.isLogged;
+     }
+   }
   }
 
 </script>
