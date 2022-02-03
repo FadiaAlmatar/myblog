@@ -14,9 +14,9 @@
               <h2 class="text-center">Log in</h2>
               <div class="form-group">
                   <input type="email" class="form-control" placeholder="email" v-model="email">
-                  <div v-show="emailError" class="text-danger">
+                  <!-- <div v-show="emailError" class="text-danger">
                      ... the email is not valid
-                  </div>
+                  </div> -->
               </div>
                <div class="form-group">
                   <input type="password" class="form-control" placeholder="Password" v-model="password">

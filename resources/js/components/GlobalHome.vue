@@ -9,8 +9,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-              <!-- v-if="isAdmin" -->
+          <li class="nav-item active" v-if="isAdmin">
             <router-link class="nav-link"  :to="'/admin'">admin
               <span class="sr-only">(current)</span>
             </router-link>
@@ -21,12 +20,11 @@
             </router-link>
           </li>
 
- <!-- v-if="!isLogged" -->
-          <li  class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#register-modal">
+          <li  class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#register-modal" v-if="!isLogged">
             <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#register-modal">Register</a>
           </li>
 
-           <li class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#login-modal">
+           <li class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#login-modal" v-if="!isLogged">
             <a class="btn btn-warning nav-link" href="" data-toggle="modal" data-target="#login-modal">login</a>
           </li>
         </ul>

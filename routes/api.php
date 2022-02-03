@@ -28,11 +28,11 @@ Route::apiResource('categories', CategoryController::class);
 Route::get('category/{slug}/posts', [PostController::class,'categoryPosts']);
 Route::post('register', [UserController::class,'register']);
 Route::post('login', [UserController::class,'login']);
-// Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::get('user', [UserController::class,'details']);
     Route::post('comment/create', [CommentController::class,'store']);
 
-// });
+});
 // ,'middleware'=>'auth:api'],
 Route::group(['prefix'=>'/admin'],function(){
     // Route::middleware('auth:api')->group(function () {

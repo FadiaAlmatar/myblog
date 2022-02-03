@@ -37,16 +37,28 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = [
+//         $credentials = [
+//             'email' => $request->email,
+//             'password' => $request->password
+//         ];
+// return "mmmmm";
+//         if (auth()->attempt($credentials)) {
+//             $token = auth()->user()->createToken('TutsForWeb')->accessToken;
+//             return response()->json(['token' => $token], 200);
+//         } else {
+//             return response()->json(['error' => 'UnAuthorised'], 401);
+//         }
+
+        $data = [
             'email' => $request->email,
             'password' => $request->password
         ];
 
-        if (auth()->attempt($credentials)) {
-            $token = auth()->user->createToken('TutsForWeb')->accessToken;
+        if (auth()->attempt($data)) {
+            $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
             return response()->json(['token' => $token], 200);
         } else {
-            return response()->json(['error' => 'UnAuthorised'], 401);
+            return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 

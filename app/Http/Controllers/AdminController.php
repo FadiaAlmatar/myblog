@@ -51,14 +51,17 @@ class AdminController extends Controller
         return response()->json($post);
     }
     public function updatePost(Request $request){
+        // return $request->image;
         $post = Post::find($request->id);
         //  $filename = $post->image;
         // if($request->hasFile('image')){
         //    $filename = time().'.'.$request->image->getClientOriginalExtension();
         //    $request->image->move(public_path('img'),$filename);
         // }
-        if ($request->has('image')) {
-            $image_path = "img/".$post->image;  // prev image path
+        // if ($request->has('image')) {
+            if($request->image <> $post->image){
+            // return "kkkkkkk";
+            $image_path = $post->image;  // prev image path
             Storage::disk('public')->delete($image_path);
             $image = $request->image;
             $path = $image->store('img', 'public');

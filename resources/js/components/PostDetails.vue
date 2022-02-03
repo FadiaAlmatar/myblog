@@ -32,7 +32,7 @@
       <!-- Preview Image -->
       <img
         class="img-fluid rounded"
-        :src="'storage/'+ post.image"
+        :src="'/storage/'+ post.image"
         style="width: 900px; max-height: 300px"
         alt=""
       />
@@ -63,7 +63,7 @@
       >
         <img
           class="d-flex mr-3 rounded-circle"
-          :src="'storage/' + comment.user.profile_img"
+          :src="'/storage/' + comment.user.profile_img"
           style="height: 50px; width: 50px"
           alt=""
         />
@@ -88,6 +88,7 @@ export default {
   },
   created() {
     this.getPost();
+    this.updateToken();
   },
   methods: {
     getPost() {
@@ -102,17 +103,18 @@ export default {
         })
     },
      addComment(){
+        //   console.log("nnnnnnn")
        let {body,post_id} = this;
-       axios.post('http://localhost:8000/api/comment/create',{body,post_id})
+       axios.post("http://localhost:8000/api/comment/create",{body,post_id})
        .then(res => {
          console.log(res)
          this.comments.unshift(res.data)
        })
      },
-    //  updateToken(){
-    //    let token =JSON.parse(localStorage.getItem('userToken'));
-    //    this.$store.commit('setUserToken',token)
-    //  }
+     updateToken(){
+       let token =JSON.parse(localStorage.getItem('userToken'));
+       this.$store.commit('setUserToken',token)
+     }
    },
 //    computed:{
 //      isLogged(){

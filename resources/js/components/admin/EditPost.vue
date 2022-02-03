@@ -33,13 +33,13 @@
 						</div>
                          <div>
                             <p>
-                            <input type="radio" name="status" :id="active" :value="1" v-model="PostToEdit.status">
+                            <input type="radio" name="status" id="active" :value="1" v-model="PostToEdit.status">
                             <label class="form-check-label" for="active">active</label>
                             </p>
                         </div>
                            <div>
                             <p>
-                            <input type="radio" name="status" :id="unactive" :value="0" v-model="PostToEdit.status">
+                            <input type="radio" name="status" id="unactive" :value="0" v-model="PostToEdit.status">
                             <label for="unactive">unactive</label>
                             </p>
                         </div>
@@ -97,7 +97,7 @@ data(){
 			axios.post('http://localhost:8000/api/admin/updatePost',formdata,config)
 			.then(res => {
 				console.log(res)
-                this.PostToEdit.image = res.data.image
+                // this.PostToEdit.image = res.data.image
 				// $('#editPostModal').modal('hide');
 				// $('.modal-backdrop').css('display','none')
                  $("#addPostModal").removeClass("in");

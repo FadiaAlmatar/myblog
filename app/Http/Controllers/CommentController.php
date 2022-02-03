@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Http\Requests\StoreCommentRequest;
+// use Illuminate\Support\Facades\Request;
+// use App\Http\Requests\StoreCommentRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateCommentRequest;
 
 class CommentController extends Controller
@@ -15,7 +18,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        // return "kkkkkk";
     }
 
     /**
@@ -34,11 +37,13 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommentRequest $request)
+
+    public function store(Request $request)
     {
+        // return "hereeee";
         $comment = Comment::create([
             'body'=>$request->body,
-            'user_id'=>1,
+            'user_id'=>Auth::user()->id,
             'post_id'=>$request->post_id
         ]);
         return response()->json([

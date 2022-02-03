@@ -87,10 +87,10 @@ const store = new Vuex.Store({
                 .then(res => {
                     console.log(res)
                     commit('setUserToken', res.data.token)
-                    axios.get('/api/user')
-                        .then(res => {
-                            commit('setUser', res.data.user)
-                        })
+                    // axios.get('/api/user')
+                    //     .then(res => {
+                    //         commit('setUser', res.data.user)
+                    //     })
                 })
                 .catch(err => {
                     console.log(err)

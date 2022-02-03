@@ -5,7 +5,7 @@
       <div  style="border:1px solid black;" class="media simple-post col-md-6" v-for="post in posts" :key="post.id">
         <img
           class="align-self-center mr-3"
-          :src="'storage/' + post.image"
+          :src="'/storage/'+ post.image"
           alt="Generic placeholder image"
         />
         <div class="media-body">
@@ -64,6 +64,7 @@ export default {
       axios
         .get("http://localhost:8000/api/category/"+this.$route.params.slug+"/posts")
         .then((res) => {
+            console.log(res)
           this.posts = res.data;
         })
         .then((err) => console.log(err));

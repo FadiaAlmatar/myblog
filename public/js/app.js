@@ -5383,6 +5383,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("http://localhost:8000/api/category/" + this.$route.params.slug + "/posts").then(function (res) {
+        console.log(res);
         _this.posts = res.data;
       }).then(function (err) {
         return console.log(err);
@@ -5439,8 +5440,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -5701,6 +5700,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getPost();
+    this.updateToken();
   },
   methods: {
     getPost: function getPost() {
@@ -5718,9 +5718,10 @@ __webpack_require__.r(__webpack_exports__);
     addComment: function addComment() {
       var _this2 = this;
 
+      //   console.log("nnnnnnn")
       var body = this.body,
           post_id = this.post_id;
-      axios.post('http://localhost:8000/api/comment/create', {
+      axios.post("http://localhost:8000/api/comment/create", {
         body: body,
         post_id: post_id
       }).then(function (res) {
@@ -5728,11 +5729,11 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.comments.unshift(res.data);
       });
-    } //  updateToken(){
-    //    let token =JSON.parse(localStorage.getItem('userToken'));
-    //    this.$store.commit('setUserToken',token)
-    //  }
-
+    },
+    updateToken: function updateToken() {
+      var token = JSON.parse(localStorage.getItem('userToken'));
+      this.$store.commit('setUserToken', token);
+    }
   } //    computed:{
   //      isLogged(){
   //        return this.$store.getters.isLogged;
@@ -6271,8 +6272,6 @@ __webpack_require__.r(__webpack_exports__);
       this.PostToEdit.image = event.target.files[0];
     },
     updatePost: function updatePost() {
-      var _this2 = this;
-
       var config = {
         headers: {
           "content-type": 'multipart/form-data'
@@ -6287,8 +6286,8 @@ __webpack_require__.r(__webpack_exports__);
       formdata.append('date', this.PostToEdit.date);
       formdata.append('status', this.PostToEdit.status);
       axios.post('http://localhost:8000/api/admin/updatePost', formdata, config).then(function (res) {
-        console.log(res);
-        _this2.PostToEdit.image = res.data.image; // $('#editPostModal').modal('hide');
+        console.log(res); // this.PostToEdit.image = res.data.image
+        // $('#editPostModal').modal('hide');
         // $('.modal-backdrop').css('display','none')
 
         $("#addPostModal").removeClass("in");
@@ -6401,10 +6400,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       var commit = _ref2.commit;
       axios.post('http://localhost:8000/api/login', payload).then(function (res) {
         console.log(res);
-        commit('setUserToken', res.data.token);
-        axios.get('/api/user').then(function (res) {
-          commit('setUser', res.data.user);
-        });
+        commit('setUserToken', res.data.token); // axios.get('/api/user')
+        //     .then(res => {
+        //         commit('setUser', res.data.user)
+        //     })
       })["catch"](function (err) {
         console.log(err);
       });
@@ -30187,7 +30186,7 @@ var render = function () {
               _c("img", {
                 staticClass: "align-self-center mr-3",
                 attrs: {
-                  src: "storage/" + post.image,
+                  src: "/storage/" + post.image,
                   alt: "Generic placeholder image",
                 },
               }),
@@ -30347,23 +30346,28 @@ var render = function () {
               },
               [
                 _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-                  _c(
-                    "li",
-                    { staticClass: "nav-item active" },
-                    [
-                      _c(
-                        "router-link",
-                        { staticClass: "nav-link", attrs: { to: "/admin" } },
+                  _vm.isAdmin
+                    ? _c(
+                        "li",
+                        { staticClass: "nav-item active" },
                         [
-                          _vm._v("admin\n              "),
-                          _c("span", { staticClass: "sr-only" }, [
-                            _vm._v("(current)"),
-                          ]),
-                        ]
-                      ),
-                    ],
-                    1
-                  ),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/admin" },
+                            },
+                            [
+                              _vm._v("admin\n              "),
+                              _c("span", { staticClass: "sr-only" }, [
+                                _vm._v("(current)"),
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "li",
@@ -30383,9 +30387,59 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
-                  _vm._m(1),
+                  !_vm.isLogged
+                    ? _c(
+                        "li",
+                        {
+                          staticClass: "nav-item register-btn reg-login-btn",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#register-modal",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-warning nav-link",
+                              attrs: {
+                                href: "",
+                                "data-toggle": "modal",
+                                "data-target": "#register-modal",
+                              },
+                            },
+                            [_vm._v("Register")]
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _vm._m(2),
+                  !_vm.isLogged
+                    ? _c(
+                        "li",
+                        {
+                          staticClass: "nav-item register-btn reg-login-btn",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#login-modal",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-warning nav-link",
+                              attrs: {
+                                href: "",
+                                "data-toggle": "modal",
+                                "data-target": "#login-modal",
+                              },
+                            },
+                            [_vm._v("login")]
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
                 ]),
               ]
             ),
@@ -30417,58 +30471,6 @@ var staticRenderFns = [
         },
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "li",
-      {
-        staticClass: "nav-item register-btn reg-login-btn",
-        attrs: { "data-toggle": "modal", "data-target": "#register-modal" },
-      },
-      [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-warning nav-link",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#register-modal",
-            },
-          },
-          [_vm._v("Register")]
-        ),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "li",
-      {
-        staticClass: "nav-item register-btn reg-login-btn",
-        attrs: { "data-toggle": "modal", "data-target": "#login-modal" },
-      },
-      [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-warning nav-link",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#login-modal",
-            },
-          },
-          [_vm._v("login")]
-        ),
-      ]
     )
   },
 ]
@@ -30547,26 +30549,6 @@ var render = function () {
                         },
                       },
                     }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.emailError,
-                            expression: "emailError",
-                          },
-                        ],
-                        staticClass: "text-danger",
-                      },
-                      [
-                        _vm._v(
-                          "\n                     ... the email is not valid\n                  "
-                        ),
-                      ]
-                    ),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
@@ -30759,7 +30741,7 @@ var render = function () {
         _c("img", {
           staticClass: "img-fluid rounded",
           staticStyle: { width: "900px", "max-height": "300px" },
-          attrs: { src: "storage/" + _vm.post.image, alt: "" },
+          attrs: { src: "/storage/" + _vm.post.image, alt: "" },
         }),
         _vm._v(" "),
         _c("hr"),
@@ -30842,7 +30824,7 @@ var render = function () {
             _c("img", {
               staticClass: "d-flex mr-3 rounded-circle",
               staticStyle: { height: "50px", width: "50px" },
-              attrs: { src: "storage/" + comment.user.profile_img, alt: "" },
+              attrs: { src: "/storage/" + comment.user.profile_img, alt: "" },
             }),
             _vm._v(" "),
             _c("div", { staticClass: "media-body" }, [
@@ -31875,7 +31857,7 @@ var render = function () {
                           expression: "PostToEdit.status",
                         },
                       ],
-                      attrs: { type: "radio", name: "status", id: _vm.active },
+                      attrs: { type: "radio", name: "status", id: "active" },
                       domProps: {
                         value: 1,
                         checked: _vm._q(_vm.PostToEdit.status, 1),
@@ -31909,11 +31891,7 @@ var render = function () {
                           expression: "PostToEdit.status",
                         },
                       ],
-                      attrs: {
-                        type: "radio",
-                        name: "status",
-                        id: _vm.unactive,
-                      },
+                      attrs: { type: "radio", name: "status", id: "unactive" },
                       domProps: {
                         value: 0,
                         checked: _vm._q(_vm.PostToEdit.status, 0),
